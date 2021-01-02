@@ -22,4 +22,14 @@ describe('deepClone', () => {
     const symbolClone = deepClone(symbol)
     assert(symbol === symbolClone)
   });
+  describe('Object', () => {
+    it('should clone object', () => {
+      const obj = {a: 1, b: {c: 2}}
+      const objClone = deepClone(obj)
+      assert(obj !== objClone)
+      assert(obj.a === objClone.a)
+      assert(obj.b !== objClone.b)
+      assert(obj.b.c === objClone.b.c)
+    })
+  })
 })
