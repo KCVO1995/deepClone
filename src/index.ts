@@ -3,6 +3,10 @@ const deepClone = (source) => {
     let dist
     if (source instanceof Array) {
       dist = []
+    } else if (source instanceof Function) {
+      dist = function () {
+        return source.apply(this, arguments)
+      }
     } else {
       dist = {}
     }

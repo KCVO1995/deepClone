@@ -31,7 +31,7 @@ describe('deepClone', () => {
       assert(obj.b !== objClone.b)
       assert(obj.b.c === objClone.b.c)
     })
-    it('can clone Array', () => {
+    it('can clone array', () => {
       const array = [[1,2], [3,4], [5,6]]
       const arrayClone = deepClone(array)
       assert(array !== arrayClone)
@@ -41,6 +41,18 @@ describe('deepClone', () => {
       assert(array[2] !== arrayClone[2])
       assert.deepEqual(array, arrayClone)
     })
-
+    it('can clone function', () => {
+      const fn = function (x, y) {
+        return x + y
+      }
+      fn.a = 1
+      fn.b = {c: 2}
+      const fnClone = deepClone(fn)
+      assert(fn !== fnClone)
+      assert(fn.a === fnClone.a)
+      assert(fn.b !== fnClone.b)
+      assert(fn.b.c === fnClone.b.c)
+      assert(fn(1, 2) === fnClone(1,2))
+    })
   })
 })
