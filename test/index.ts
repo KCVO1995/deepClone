@@ -4,7 +4,7 @@ import * as chai from 'chai'
 
 const assert = chai.assert
 describe('deepClone', () => {
-  it('should clone basic types', function () {
+  it('can clone basic types', function () {
     const string = '文字'
     const stringClone = deepClone(string)
     assert(string === stringClone)
@@ -23,7 +23,7 @@ describe('deepClone', () => {
     assert(symbol === symbolClone)
   });
   describe('Object', () => {
-    it('should clone object', () => {
+    it('can clone object', () => {
       const obj = {a: 1, b: {c: 2}}
       const objClone = deepClone(obj)
       assert(obj !== objClone)
@@ -31,5 +31,16 @@ describe('deepClone', () => {
       assert(obj.b !== objClone.b)
       assert(obj.b.c === objClone.b.c)
     })
+    it('can clone Array', () => {
+      const array = [[1,2], [3,4], [5,6]]
+      const arrayClone = deepClone(array)
+      assert(array !== arrayClone)
+      assert(array[0] !== arrayClone[0])
+      assert(array[0][0] === arrayClone[0][0])
+      assert(array[1] !== arrayClone[1])
+      assert(array[2] !== arrayClone[2])
+      assert.deepEqual(array, arrayClone)
+    })
+
   })
 })
