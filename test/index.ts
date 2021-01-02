@@ -54,5 +54,13 @@ describe('deepClone', () => {
       assert(fn.b.c === fnClone.b.c)
       assert(fn(1, 2) === fnClone(1,2))
     })
+    it.only('can clone cycle object', () => {
+      const obj:any = {a: 1}
+      obj.self = obj
+      const objClone = deepClone(obj)
+      assert(obj !== objClone)
+      assert(obj.a === objClone.a)
+      assert(obj.self !== objClone.self)
+    })
   })
 })
