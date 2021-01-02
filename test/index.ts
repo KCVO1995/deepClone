@@ -54,13 +54,36 @@ describe('deepClone', () => {
       assert(fn.b.c === fnClone.b.c)
       assert(fn(1, 2) === fnClone(1,2))
     })
-    it.only('can clone cycle object', () => {
+    it('can clone cycle object', () => {
       const obj:any = {a: 1}
       obj.self = obj
       const objClone = deepClone(obj)
       assert(obj !== objClone)
       assert(obj.a === objClone.a)
       assert(obj.self !== objClone.self)
+    })
+    it.skip('will not stack over', () => {
+      const obj = { child: null };
+      let obj1 = obj;
+      for (let i = 0; i < 10000; i++) {
+        obj1.child = {
+          child: null
+        };
+        obj1 = obj1.child;
+      }
+      const objClone = deepClone(obj)
+      assert(obj !== objClone)
+      assert(obj.child !== objClone.child)
+    })
+    it('can clone date', () => {
+      const date:any = new Date()
+      date.a = 1
+      date.b = {c: 1}
+      const dateClone = deepClone(date)
+      assert(date.getTime() === dateClone.getTime())
+      assert(date.a === dateClone.a)
+      assert(date.b !== dateClone.b)
+      assert(date.b.c === dateClone.b.c)
     })
   })
 })
