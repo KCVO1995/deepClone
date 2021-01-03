@@ -97,5 +97,16 @@ describe('deepClone', () => {
       assert(regexp.b !== regexpClone.b)
       assert(regexp.b.c === regexpClone.b.c)
     })
+    it('will not clone origin attribute', () => {
+      const obj = Object.create({xxx: 1})
+      obj.a = 1
+      obj.b = {c: 1}
+      const objClone = deepClone(obj)
+      assert.isTrue('xxx' in obj)
+      assert.isFalse('xxx' in objClone)
+      assert(obj.a === objClone.a)
+      assert(obj.b !== objClone.b)
+      assert(obj.b.c === objClone.b.c)
+    })
   })
 })
