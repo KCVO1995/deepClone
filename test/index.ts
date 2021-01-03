@@ -62,7 +62,7 @@ describe('deepClone', () => {
       assert(obj.a === objClone.a)
       assert(obj.self !== objClone.self)
     })
-    it.skip('will not stack over', () => {
+    it.skip('will not stack over flow', () => {
       const obj = { child: null };
       let obj1 = obj;
       for (let i = 0; i < 10000; i++) {
@@ -84,6 +84,18 @@ describe('deepClone', () => {
       assert(date.a === dateClone.a)
       assert(date.b !== dateClone.b)
       assert(date.b.c === dateClone.b.c)
+    })
+    it('can clone regexp', () => {
+      const regexp:any = new RegExp('h1\\d+', 'gi')
+      regexp.a = 1
+      regexp.b = {c: 1}
+      const regexpClone = deepClone(regexp)
+      assert(regexp !== regexpClone)
+      assert(regexp.source === regexp.source)
+      assert(regexp.flags === regexp.flags)
+      assert(regexp.a === regexpClone.a)
+      assert(regexp.b !== regexpClone.b)
+      assert(regexp.b.c === regexpClone.b.c)
     })
   })
 })

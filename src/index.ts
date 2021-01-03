@@ -14,6 +14,8 @@ const deepClone = (source) => {
       }
     } else if (source instanceof Date) {
       dist = new Date(source)
+    } else if (source instanceof RegExp) {
+      dist = new RegExp(source.source, source.flags)
     } else {
       dist = {}
     }
