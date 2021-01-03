@@ -62,7 +62,7 @@ describe('new DeepCloner().clone', () => {
       assert(obj.a === objClone.a)
       assert(obj.self !== objClone.self)
     })
-    it.skip('will not stack over flow', () => {
+    it.skip('will not stack over flow', () => { // 解决办法：将属性放入数组中，然后循环获取，将深度为10000，改成长度为10000的数组，需要要压栈
       const obj = { child: null };
       let obj1 = obj;
       for (let i = 0; i < 10000; i++) {
